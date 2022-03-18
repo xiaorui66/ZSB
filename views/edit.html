@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>修改数据</title>
+    <link rel="stylesheet" href="{{url}}/public/css/bootstrap.min.css" />
+    <script src="{{url}}/public/js/goIndexPage.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <h1 class="text-center p-3 font-weight-bold">修改数据</h1>
+      <form action="{{url}}/edit" method="POST">
+        <input type="hidden" name="index" value="{{index}}" />
+        <!-- 题目 -->
+        <div class="form-group">
+          <label for="subject" class="font-weight-bold text-primary"
+            >题目描述</label
+          >
+          <textarea
+            name="subject"
+            id="subject"
+            class="form-control"
+            cols="30"
+            rows="3"
+            placeholder="请输入题目信息"
+            required
+          >
+{{subjectData.subject}}</textarea
+          >
+        </div>
+        <!-- 选项A -->
+        <div class="form-group">
+          <label for="A" class="font-weight-bold text-info">选项A数据</label>
+          <input
+            type="text"
+            name="A"
+            id="A"
+            class="form-control"
+            placeholder="请输入选项A信息"
+            autocomplete="off"
+            required
+            value="{{subjectData.A}}"
+          />
+        </div>
+        <!-- 选项B -->
+        <div class="form-group">
+          <label for="B" class="font-weight-bold text-info">选项B数据</label>
+          <input
+            type="text"
+            name="B"
+            id="B"
+            class="form-control"
+            placeholder="请输入选项B信息"
+            autocomplete="off"
+            required
+            value="{{subjectData.B}}"
+          />
+        </div>
+        <!-- 选项C -->
+        <div class="form-group">
+          <label for="C" class="font-weight-bold text-info">选项C数据</label>
+          <input
+            type="text"
+            name="C"
+            id="C"
+            class="form-control"
+            placeholder="请输入选项C信息"
+            autocomplete="off"
+            required
+            value="{{subjectData.C}}"
+          />
+        </div>
+        <!-- 选项D -->
+        <div class="form-group">
+          <label for="D" class="font-weight-bold text-info">选项D数据</label>
+          <input
+            type="text"
+            name="D"
+            id="D"
+            class="form-control"
+            placeholder="请输入选项D信息"
+            autocomplete="off"
+            required
+            value="{{subjectData.D}}"
+          />
+        </div>
+        <!-- 正确答案 -->
+        <div class="form-group">
+          <label for="answer" class="font-weight-bold text-success"
+            >正确答案</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            id="answer"
+            name="answer"
+            placeholder="请输入正确答案"
+            autocomplete="off"
+            required
+            value="{{subjectData.answer}}"
+          />
+        </div>
+        <!-- 依据来源 -->
+        <div class="form-group">
+          <label for="basis" class="font-weight-bold text-success">依据</label>
+          <textarea
+            name="basis"
+            id="basis"
+            class="form-control"
+            cols="30"
+            rows="3"
+            placeholder="可输入空格跳过"
+            required
+          >
+{{basisString}}</textarea
+          >
+        </div>
+        <button
+          type="button"
+          data-url="{{url}}"
+          class="btn btn-primary btn-lg goIndexPage"
+        >
+          首页
+        </button>
+        <button type="submit" class="btn btn-success btn-lg">提交</button>
+        <button type="reset" class="btn btn-primary btn-lg">重置</button>
+      </form>
+    </div>
+  </body>
+</html>

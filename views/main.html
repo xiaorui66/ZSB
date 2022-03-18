@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>首页</title>
+    <link rel="stylesheet" href="{{url}}/public/css/bootstrap.min.css" />
+    <style>
+      .answer {
+        color: white;
+      }
+      .answer:hover {
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <button
+        class="btn btn-success toggleAnswer position-fixed"
+        style="z-index: 1000"
+      >
+        展示/隐藏所有答案
+      </button>
+      <a
+        href="{{url}}/add"
+        class="btn btn-primary position-fixed col-1"
+        style="z-index: 1000; right: 0"
+        >新增</a
+      >
+      <h1 class="text-center p-3 font-weight-bold">
+        习题记录：{{subjectArray.length}}
+      </h1>
+      {{if !flag}}
+      <h3 class="text-center p-3 font-weight-bold" style="color: gray">
+        暂无数据
+      </h3>
+      {{/if}} {{each subjectArray}}
+      <!-- 每一项 -->
+      <div class="card mb-4" id="{{$index}}">
+        <div class="card-header font-weight-bold">
+          习题{{$index + 1}}：{{$value.subject}}
+          <div class="float-right">
+            <a href="{{url}}/edit?index={{$index}}" class="btn btn-warning"
+              >修改</a
+            >
+            <button
+              class="btn btn-danger deleteData"
+              data-url="{{url}}/delete?index={{$index}}"
+            >
+              删除
+            </button>
+          </div>
+        </div>
+        <div class="card-body">
+          <!-- 选项 -->
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">A：{{$value.A}}</li>
+            <li class="list-group-item">B：{{$value.B}}</li>
+            <li class="list-group-item">C：{{$value.C}}</li>
+            <li class="list-group-item">D：{{$value.D}}</li>
+            <li class="list-group-item text-primary">
+              正确答案：<span class="font-weight-bold answer pl-2 pr-2"
+                >{{$value.answer}}</span
+              >
+            </li>
+          </ul>
+          <!-- 答案依据链接 -->
+          <div class="text-wrap">
+            {{each $value.basisArray}}
+            <a href="{{$value}}" target="_blank" class="p-1">{{$value}}</a>
+            {{/each}}
+          </div>
+        </div>
+      </div>
+      {{/each}}
+      <div
+        class="position-fixed btn btn-primary goTop"
+        style="bottom: 0; right: 0"
+      >
+        返回顶部
+      </div>
+    </div>
+    <script>
+      Array.from(document.querySelectorAll(".deleteData")).forEach((itme) => {
+        itme.addEventListener("click", () => {
+          if (confirm("确定删除吗？"))
+            window.location.href = itme.getAttribute("data-url");
+        });
+      });
+      const answerArray = Array.from(document.querySelectorAll(".answer"));
+      // 展示单个题目答案
+      answerArray.forEach((value, index) => {
+        let flag = true;
+        value.addEventListener("click", () => {
+          if (flag) value.style.color = "#007bff";
+          else value.style.color = "white";
+          flag = !flag;
+        });
+      });
+      // 展示或隐藏答案
+      (function () {
+        let flag = true;
+        document
+          .querySelector(".toggleAnswer")
+          .addEventListener("click", () => {
+            if (flag)
+              answerArray.forEach((item) => (item.style.color = "#007bff"));
+            else answerArray.forEach((item) => (item.style.color = "white"));
+            flag = !flag;
+          });
+      })();
+      // 返回顶部
+      (function () {
+        document.querySelector(".goTop").addEventListener("click", () => {
+          window.scrollTo(0, 0);
+        });
+      })();
+    </script>
+  </body>
+</html>
